@@ -1,0 +1,1307 @@
+<title>Edenia K-Mobile</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: Rivian-style light/dark band inversion, Tesla-style
+   model panels, one gold pill CTA as the only accent.
+   Deliberately single-look: every colour set explicitly. */
+:root{
+  --ink:#141414; --ink2:#494949; --ink3:#7a7a7a;
+  --canvas:#ffffff; --mist:#f2f2f2; --line:#e3e3e3;
+  --night:#121212; --night2:#1c1c1c; --nline:#2c2c2c;
+  --gold:#e8b23a; --gold-h:#f3c65e; --amber:#ffb22e;
+  --f:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--canvas);color:var(--ink);
+  font:16px/1.55 var(--f)}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+p{margin:0}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.025em;
+  line-height:1.04;text-wrap:balance}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.wrap{max-width:1360px;margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{padding-block:clamp(64px,8vw,104px)}
+.dark{background:var(--night);color:#f2f2f2}
+.mist{background:var(--mist)}
+
+/* buttons: gold is reserved for the primary action */
+.pill{display:inline-flex;align-items:center;justify-content:center;
+  height:44px;padding:0 22px;border-radius:9999px;font-weight:600;
+  font-size:.95rem;border:1.5px solid transparent;cursor:pointer;
+  font-family:var(--f);transition:background .2s,color .2s}
+.pill.gold{background:var(--gold);color:#000}
+.pill.gold:hover{background:var(--gold-h)}
+.pill.ghost{border-color:currentColor;background:transparent;
+  color:inherit}
+.pill.ghost:hover{background:rgba(127,127,127,.12)}
+.pill.ink{background:var(--ink);color:#fff}
+.txt{font-weight:600;border-bottom:1.5px solid currentColor;
+  padding-bottom:1px}
+
+/* nav */
+body::before{content:"";position:fixed;inset:0 0 auto;
+  height:env(safe-area-inset-top,0px);z-index:10;background:#fff}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
+  background:#fff;border-bottom:1px solid var(--line)}
+.nav .wrap{height:60px;display:flex;align-items:center;gap:24px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand img{width:30px;height:30px;border-radius:50%}
+.brand b{font-weight:800;letter-spacing:.04em;font-size:.95rem}
+.brand span{color:var(--ink3);font-size:.8rem}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0 auto;
+  padding:0;font-size:.9rem;font-weight:500}
+.nav ul a{color:var(--ink2)}
+.nav ul a:hover{color:var(--ink)}
+.nav .pill{height:36px;padding:0 18px;font-size:.88rem}
+@media (max-width:900px){.nav ul{display:none}
+  .nav .pill{margin-left:auto}}
+
+/* hero carousel (Kia / Carloha / Globe Motors sliders) */
+.hero{position:relative;overflow:hidden;background:#0c0c0c;color:#fff}
+.slides{display:grid}
+.slide{grid-area:1/1;position:relative;isolation:isolate;
+  opacity:0;visibility:hidden;transition:opacity .7s ease,
+  visibility 0s linear .7s}
+.slide.on{opacity:1;visibility:visible;transition:opacity .7s ease}
+.slide .amb{position:absolute;inset:-60px;z-index:-2;width:auto;
+  max-width:none;height:calc(100% + 120px);
+  width:calc(100% + 120px);object-fit:cover;
+  filter:blur(48px) saturate(1.1);transform:scale(1.1);opacity:.55}
+.slide::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(90deg,rgba(10,10,10,.96) 0%,
+  rgba(10,10,10,.82) 40%,rgba(10,10,10,.35) 100%)}
+.slide .in{display:grid;grid-template-columns:1fr 1.12fr;
+  gap:clamp(24px,4vw,56px);align-items:center;
+  padding-block:clamp(40px,6vw,80px) clamp(96px,10vw,128px)}
+.slide .copy{display:grid;gap:18px;justify-items:start;min-width:0}
+.slide .kick{font-size:.9rem;color:var(--gold);font-weight:600}
+.slide h1,.slide h2.h{font-size:clamp(2.3rem,5.2vw,4.4rem);
+  font-weight:600;max-width:13ch}
+.slide .sub{color:#c4c4c4;font-size:1.06rem;max-width:40ch}
+.slide .st{display:flex;gap:clamp(18px,3vw,36px);flex-wrap:wrap;
+  margin-top:4px}
+.slide .st b{display:block;font-size:1.45rem;font-weight:600;
+  font-variant-numeric:tabular-nums}
+.slide .st span{font-size:.8rem;color:#9a9a9a}
+.slide .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.slide .frame{border-radius:24px;overflow:hidden;aspect-ratio:4/3;
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.8);min-width:0;
+  transform:translateY(14px) scale(.985);
+  transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.slide.on .frame{transform:none}
+.slide .frame img{width:100%;height:100%;object-fit:cover}
+.hctl{position:absolute;left:0;right:0;bottom:clamp(56px,6vw,72px);
+  z-index:3}
+.hctl .wrap{display:flex;align-items:center;gap:20px}
+.dots{display:flex;gap:10px;flex:1}
+.dots button{flex:0 1 150px;background:none;border:0;padding:8px 0;
+  cursor:pointer;color:#a0a0a0;font:600 .82rem var(--f);
+  text-align:left;display:grid;gap:8px}
+.dots button[aria-current=true]{color:#fff}
+.dots i{display:block;height:3px;border-radius:3px;
+  background:rgba(255,255,255,.2);overflow:hidden}
+.dots i::after{content:"";display:block;height:100%;width:0;
+  background:var(--gold)}
+.dots button[aria-current=true] i::after{animation:fill var(--dur,6s)
+  linear forwards}
+.hero.paused .dots button[aria-current=true] i::after{
+  animation-play-state:paused}
+@keyframes fill{to{width:100%}}
+.arrows{display:flex;gap:8px}
+.arrows button{width:44px;height:44px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.35);background:transparent;
+  color:#fff;cursor:pointer;font-size:1.1rem}
+.arrows button:hover{background:rgba(255,255,255,.12)}
+@media (max-width:820px){
+  .slide .in{grid-template-columns:1fr;padding-top:20px}
+  .slide .frame{order:-1;aspect-ratio:16/11}
+  .slide::after{background:linear-gradient(180deg,rgba(10,10,10,.4),
+    rgba(10,10,10,.92) 45%)}
+  .dots button{flex:1;font-size:.74rem}
+  .arrows{display:none}}
+
+
+/* model panels (Tesla) */
+.panels{display:grid;gap:16px}
+.panel{position:relative;border-radius:28px;overflow:hidden;
+  min-height:clamp(420px,62vw,680px);display:flex;
+  flex-direction:column;justify-content:space-between;
+  padding:clamp(24px,4vw,48px);color:#fff;isolation:isolate}
+.panel>img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:-2}
+.panel::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,
+  rgba(0,0,0,0) 32%,rgba(0,0,0,0) 62%,rgba(0,0,0,.6) 100%)}
+.panel.light{color:var(--ink)}
+.panel.light::after{background:linear-gradient(180deg,
+  rgba(255,255,255,.92) 0%,rgba(255,255,255,.6) 22%,
+  rgba(255,255,255,0) 40%,
+  rgba(0,0,0,0) 60%,rgba(0,0,0,.55) 100%)}
+.panel .t{display:grid;gap:8px;text-align:center;justify-items:center}
+.panel h2{font-size:clamp(2.6rem,6vw,4.6rem)}
+.panel .t p{font-size:1.05rem;opacity:.85}
+.panel .b{display:flex;justify-content:space-between;
+  align-items:flex-end;gap:20px;flex-wrap:wrap;color:#fff}
+.panel .specs{display:flex;gap:clamp(18px,3vw,40px);flex-wrap:wrap}
+.panel .specs b{display:block;font-size:1.4rem;font-weight:600;
+  font-variant-numeric:tabular-nums}
+.panel .specs span{font-size:.8rem;opacity:.8}
+.panel .acts{display:flex;gap:10px;flex-wrap:wrap}
+.panel.soon{background:var(--night2)}
+.panel.soon::after{display:none}
+.panel.soon .ghostname{position:absolute;inset:auto 0 18% 0;
+  text-align:center;font-weight:800;font-size:clamp(5rem,20vw,15rem);
+  letter-spacing:-.05em;line-height:.8;color:#262626;z-index:-1}
+@media (max-width:700px){
+  .panel{padding:24px 20px 0}
+  .panel .b{background:rgba(10,10,10,.82);margin:0 -20px;
+    padding:18px 20px 20px;backdrop-filter:blur(6px)}
+  .panel .specs b{font-size:1.1rem}}
+.panel.soon .note{font-size:.88rem;color:#9a9a9a}
+
+/* section heading */
+.sh{display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,48px)}
+.sh h2{font-size:clamp(2rem,4.4vw,3.4rem);max-width:16ch}
+.sh p{max-width:44ch;color:var(--ink2)}
+.dark .sh p{color:#b0b0b0}
+
+/* pump */
+.pumpgrid{display:grid;grid-template-columns:1.15fr .85fr;gap:24px}
+.pump{background:#0a0a0a;border:1px solid var(--nline);
+  border-radius:20px;padding:clamp(18px,3vw,28px);display:grid;gap:14px}
+.ph{display:flex;justify-content:space-between;font-size:.72rem;
+  letter-spacing:.18em;color:#7a7a7a;font-weight:600}
+.screen{background:#150f06;border-radius:10px;padding:14px 18px;
+  box-shadow:inset 0 2px 16px #000;display:grid;gap:4px}
+.screen small{font-size:.66rem;letter-spacing:.2em;color:#8a7650;
+  font-weight:600}
+.dig{font-weight:700;font-size:clamp(2.1rem,5.2vw,3.8rem);
+  line-height:1;color:var(--amber);text-align:right;
+  font-variant-numeric:tabular-nums;letter-spacing:.02em;
+  text-shadow:0 0 20px rgba(255,178,46,.35)}
+.dig.s{font-size:clamp(1.3rem,2.8vw,2rem)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ctrl{background:var(--night2);border:1px solid var(--nline);
+  border-radius:20px;padding:clamp(18px,3vw,28px);display:grid;
+  gap:22px;align-content:start}
+.ctrl label{display:flex;justify-content:space-between;gap:10px;
+  font-weight:500;font-size:.92rem;color:#d6d6d6}
+.ctrl output{color:var(--gold);font-variant-numeric:tabular-nums}
+.ctrl .f{display:grid;gap:8px}
+.ctrl input[type=range]{width:100%;accent-color:var(--gold)}
+.ctrl input[type=number]{background:#111;border:1px solid var(--nline);
+  color:#fff;border-radius:10px;padding:10px 12px;font:inherit;
+  font-variant-numeric:tabular-nums;width:100%}
+.ctrl small{color:#8a8a8a;font-size:.8rem}
+.verdict{margin-top:20px;font-size:clamp(1.2rem,2.2vw,1.55rem);
+  font-weight:500;max-width:34ch;letter-spacing:-.01em}
+.verdict b{color:var(--gold);font-weight:600}
+.fine{color:#7a7a7a;font-size:.8rem;margin-top:10px}
+@media (max-width:860px){.pumpgrid{grid-template-columns:1fr}}
+
+/* charging */
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.col{background:var(--mist);border-radius:20px;padding:28px;
+  display:grid;gap:12px;align-content:start}
+.col .n{font-size:2.6rem;font-weight:600;letter-spacing:-.03em}
+.col h3{font-size:1.3rem}
+.col p{color:var(--ink2)}
+.perks{margin-top:16px;border-radius:20px;background:var(--ink);
+  color:#fff;padding:clamp(24px,3vw,36px);display:grid;
+  grid-template-columns:repeat(4,1fr);gap:24px}
+.perks b{display:block;font-size:1.6rem;font-weight:600;
+  color:var(--gold);letter-spacing:-.02em}
+.perks span{color:#bdbdbd;font-size:.92rem}
+@media (max-width:860px){.cols{grid-template-columns:1fr}
+  .perks{grid-template-columns:1fr 1fr}}
+
+/* compare (Rivian) */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cc{background:#fff;border-radius:20px;padding:20px;display:grid;
+  gap:16px;align-content:start;min-width:0}
+.cc select{font:600 1.1rem var(--f);border:1px solid var(--line);
+  border-radius:9999px;padding:10px 16px;background:#fff;color:var(--ink);
+  width:100%}
+.cc .im{aspect-ratio:4/3;border-radius:14px;overflow:hidden;
+  background:var(--night2);display:grid;place-items:center}
+.cc .im img{width:100%;height:100%;object-fit:cover}
+.cc .im span{color:#5a5a5a;font-weight:800;font-size:2.6rem;
+  letter-spacing:-.04em}
+.cc dl{margin:0;display:grid;grid-template-columns:auto 1fr}
+.cc dt,.cc dd{margin:0;padding:12px 0;border-top:1px solid var(--line);
+  font-size:.92rem}
+.cc dt{color:var(--ink3);padding-right:16px}
+.cc dd{text-align:right;font-weight:500;font-variant-numeric:tabular-nums}
+.cc dd.win{color:#0b7a47}
+@media (max-width:640px){.cmp{grid-template-columns:1fr}}
+
+/* faq */
+.faq{max-width:900px;border-top:1px solid var(--line)}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 0;
+  font-size:1.12rem;font-weight:500;display:flex;
+  justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:1.5rem;line-height:1;
+  color:var(--ink3);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--ink2);padding-bottom:22px;max-width:62ch}
+
+/* booking */
+.bk{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(24px,4vw,56px)}
+.bk h2{font-size:clamp(2.2rem,4.8vw,3.8rem)}
+.dealer{margin-top:32px;border-top:1px solid var(--nline);
+  padding-top:24px;display:grid;gap:4px;color:#b0b0b0}
+.dealer b{color:#fff;font-weight:600}
+.dealer .ok{font-size:.8rem;color:var(--gold);font-weight:600;
+  margin-bottom:6px}
+form{background:#fff;color:var(--ink);border-radius:24px;
+  padding:clamp(20px,3vw,32px);display:grid;
+  grid-template-columns:1fr 1fr;gap:14px}
+form .full{grid-column:1/-1}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg label{flex:1 1 90px}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{display:block;text-align:center;padding:11px 8px;
+  border:1.5px solid var(--line);border-radius:12px;font-weight:600;
+  cursor:pointer;font-size:.92rem}
+.seg input:checked+span{border-color:var(--ink);background:var(--mist)}
+.seg input:focus-visible+span{outline:2px solid var(--gold)}
+form .fl{display:grid;gap:6px;font-size:.84rem;color:var(--ink2);
+  font-weight:500}
+form input:not([type=radio]),form textarea{font:inherit;color:var(--ink);
+  background:var(--mist);border:1.5px solid transparent;border-radius:12px;
+  padding:12px 14px;width:100%}
+form input:focus,form textarea:focus{outline:0;border-color:var(--ink)}
+.err{color:#b3261e;font-weight:600;font-size:.9rem}
+.done{background:var(--mist);border-radius:14px;padding:16px;
+  display:grid;gap:10px}
+.done pre{margin:0;white-space:pre-wrap;font:.88rem/1.55 var(--f)}
+@media (max-width:860px){.bk{grid-template-columns:1fr}}
+@media (max-width:480px){form{grid-template-columns:1fr}}
+
+.become{display:flex;justify-content:space-between;align-items:center;
+  gap:24px;flex-wrap:wrap}
+.become h3{font-size:clamp(1.5rem,3vw,2.2rem)}
+.become p{color:var(--ink2);max-width:52ch;margin-top:8px}
+
+footer{background:var(--night);color:#8a8a8a;font-size:.88rem}
+
+footer b{color:#fff}
+
+
+/* utility bar (Carloha / Pegasus) */
+.util{background:var(--night);color:#a8a8a8;font-size:.8rem}
+.util .wrap{display:flex;justify-content:space-between;gap:16px;
+  padding-block:8px;flex-wrap:wrap}
+.util a{color:#e6e6e6}
+.util a:hover{color:var(--gold)}
+.util .r{display:flex;gap:20px}
+@media (max-width:700px){.util .l{display:none}
+  .util .wrap{justify-content:center}}
+
+/* cars mega menu (Kia) */
+.nav li{position:relative}
+.nav .cars-btn{font:inherit;color:var(--ink2);background:none;border:0;
+  cursor:pointer;padding:0;display:flex;align-items:center;gap:4px}
+.nav .cars-btn:hover,.nav .cars-btn[aria-expanded=true]{color:var(--ink)}
+.nav .cars-btn::after{content:"";width:6px;height:6px;margin-top:-3px;
+  border-right:1.5px solid currentColor;border-bottom:1.5px solid
+  currentColor;transform:rotate(45deg);transition:transform .2s}
+.nav .cars-btn[aria-expanded=true]::after{transform:rotate(225deg);
+  margin-top:3px}
+.mega{position:absolute;top:calc(100% + 22px);left:-24px;width:640px;
+  background:#fff;border:1px solid var(--line);border-radius:20px;
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.25);padding:14px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mega a{border-radius:14px;padding:12px;display:grid;gap:4px}
+.mega a:hover{background:var(--mist)}
+.mega .th{aspect-ratio:16/10;display:grid;place-items:center;
+  border-radius:10px;background:var(--mist);overflow:hidden}
+.mega .th img{width:88%;height:auto}
+.mega .th.dk{background:var(--night2);color:#555;font-weight:800;
+  letter-spacing:-.03em;font-size:1.3rem}
+.mega b{font-size:1rem}
+.mega span{font-size:.82rem;color:var(--ink3)}
+
+/* car finder (Carloaded / Pegasus) */
+.finder-wrap{position:relative;z-index:2;margin-top:-44px}
+.finder{background:#fff;border-radius:22px;
+  box-shadow:0 24px 60px -24px rgba(0,0,0,.35);
+  padding:clamp(18px,2.4vw,26px);display:grid;
+  grid-template-columns:auto 1fr 1fr auto;gap:16px;align-items:end}
+.finder h2{font-size:1.25rem;letter-spacing:-.01em;align-self:center;
+  max-width:11ch;line-height:1.15}
+.finder label{display:grid;gap:6px;font-size:.8rem;font-weight:600;
+  color:var(--ink3)}
+.finder select{font:500 1rem var(--f);color:var(--ink);
+  background:var(--mist);border:1.5px solid transparent;
+  border-radius:12px;padding:12px 14px;width:100%}
+.finder select:focus{outline:0;border-color:var(--ink)}
+.finder .pill{height:48px}
+.match{grid-column:1/-1;border-top:1px solid var(--line);
+  padding-top:14px;display:flex;justify-content:space-between;
+  align-items:center;gap:12px;flex-wrap:wrap}
+.match p{font-size:1rem}
+.match b{font-weight:700}
+@media (max-width:900px){.finder{grid-template-columns:1fr 1fr}
+  .finder h2{grid-column:1/-1;max-width:none}
+  .finder .pill{grid-column:1/-1}}
+@media (max-width:480px){.finder{grid-template-columns:1fr}}
+.panel.hit{outline:3px solid var(--gold);outline-offset:4px}
+
+/* promise strip (Carloha 6-6-7) */
+.promise{display:grid;grid-template-columns:auto repeat(3,1fr);
+  gap:clamp(16px,3vw,40px);align-items:center;
+  padding-block:clamp(40px,5vw,64px)}
+.promise h2{font-size:clamp(1.4rem,2.4vw,1.9rem);max-width:10ch}
+.promise .n{font-size:clamp(2.6rem,5vw,4rem);font-weight:700;
+  letter-spacing:-.04em;line-height:1;display:block;
+  font-variant-numeric:tabular-nums}
+.promise .n i{font-style:normal;color:var(--gold)}
+.promise p{color:var(--ink2);font-size:.95rem;margin-top:6px;
+  max-width:24ch}
+@media (max-width:820px){.promise{grid-template-columns:1fr 1fr 1fr}
+  .promise h2{grid-column:1/-1;max-width:none}}
+@media (max-width:480px){.promise{grid-template-columns:1fr}}
+
+/* buying steps (Pegasus / Steady) */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+  counter-reset:st;list-style:none;margin:0;padding:0}
+.steps li{border-top:2px solid var(--ink);padding-top:18px;
+  display:grid;gap:8px;align-content:start}
+.steps li::before{counter-increment:st;content:"0" counter(st);
+  font-weight:700;color:var(--gold);font-size:.95rem}
+.steps h3{font-size:1.25rem}
+.steps p{color:var(--ink2);font-size:.95rem}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* quote dialog (Kia) */
+dialog.q{border:0;border-radius:24px;padding:0;width:min(520px,
+  calc(100vw - 32px));max-height:calc(100vh - 32px);color:var(--ink);
+  background:#fff}
+dialog.q::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(3px)}
+dialog.q form{border-radius:0;grid-template-columns:1fr 1fr}
+dialog.q .hd{grid-column:1/-1;display:flex;justify-content:space-between;
+  align-items:start;gap:12px}
+dialog.q h2{font-size:1.6rem}
+dialog.q .x{background:var(--mist);border:0;border-radius:50%;
+  width:36px;height:36px;font-size:1.2rem;cursor:pointer;color:var(--ink)}
+dialog.q select{font:inherit;color:var(--ink);background:var(--mist);
+  border:1.5px solid transparent;border-radius:12px;padding:12px 14px;
+  width:100%}
+@media (max-width:480px){dialog.q form{grid-template-columns:1fr}}
+
+/* floating WhatsApp (Carloha / Kia) */
+.wa{position:fixed;z-index:30;
+  right:calc(20px + env(safe-area-inset-right,0px));
+  bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  height:52px;padding:0 20px 0 16px;border-radius:9999px;border:0;
+  background:#1faa59;color:#fff;font:600 .95rem var(--f);
+  display:flex;align-items:center;gap:10px;cursor:pointer;
+  box-shadow:0 12px 30px -8px rgba(0,0,0,.45)}
+.wa svg{width:24px;height:24px}
+.wa:hover{background:#1c9a50}
+@media (max-width:700px){.wa{display:none}}
+
+/* deep footer (Carloaded / Kia) */
+footer .cols4{display:grid;grid-template-columns:1.4fr repeat(3,1fr);
+  gap:32px;padding-block:56px 32px;border-bottom:1px solid var(--nline)}
+footer h4{color:#fff;font-size:.9rem;margin:0 0 12px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+footer ul a:hover{color:var(--gold)}
+footer .about{display:grid;gap:12px;max-width:34ch}
+footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
+  gap:12px;padding-block:20px}
+@media (max-width:820px){footer .cols4{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){footer .cols4{grid-template-columns:1fr}}
+
+
+/* studio frame for the official Sports cut-out */
+.slide .frame.studio{display:grid;place-items:center;
+  background:radial-gradient(120% 90% at 50% 75%,#f6f6f6 0%,#d9dce0 60%,#bfc3c9 100%)}
+.slide .frame.studio img{width:90%;height:auto;object-fit:contain;
+  filter:drop-shadow(0 24px 22px rgba(0,0,0,.35))}
+.panel.studio{color:var(--ink);
+  background:radial-gradient(110% 80% at 50% 70%,#f7f7f7 0%,#dcdfe3 55%,#c4c8ce 100%)}
+.panel.studio>img{inset:27% 12% 17% 12%;width:76%;height:56%;
+  object-fit:contain;filter:drop-shadow(0 30px 24px rgba(0,0,0,.3))}
+.panel.studio::after{background:linear-gradient(180deg,transparent 58%,
+  rgba(0,0,0,.6) 100%)}
+.cc .im img.cut{object-fit:contain;background:#e4e6e9;padding:6%}
+.mega .th img.cutw{width:94%}
+
+/* whatsapp contact chooser */
+.wa-pop{position:fixed;z-index:31;
+  right:calc(20px + env(safe-area-inset-right,0px));
+  bottom:calc(84px + env(safe-area-inset-bottom,0px));
+  width:280px;background:#fff;color:var(--ink);border-radius:18px;
+  box-shadow:0 24px 60px -16px rgba(0,0,0,.45);padding:16px;
+  display:grid;gap:10px}
+.wa-pop h4{margin:0;font-size:1rem}
+.wa-pop p{color:var(--ink3);font-size:.84rem}
+.wa-pop a{display:flex;justify-content:space-between;align-items:center;
+  gap:10px;padding:12px 14px;border-radius:12px;background:var(--mist);
+  font-weight:600}
+.wa-pop a:hover{background:#e6f6ed}
+.wa-pop a span{font-weight:500;color:var(--ink3);font-size:.84rem}
+.wa-pop a em{font-style:normal;font-size:.72rem;color:#1c9a50;
+  font-weight:700}
+@media (max-width:700px){.wa-pop{bottom:calc(76px +
+  env(safe-area-inset-bottom,0px));left:16px;right:16px;width:auto}}
+.wa-links{display:flex;gap:8px;flex-wrap:wrap}
+.wa-links a{height:38px;display:inline-flex;align-items:center;
+  padding:0 16px;border-radius:9999px;background:#1faa59;color:#fff;
+  font-weight:600;font-size:.9rem}
+.wa-links a.alt{background:transparent;color:var(--ink);
+  border:1.5px solid var(--line)}
+.ok-msg{font-weight:600}
+
+/* mobile sticky bar (Tesla mobile pattern) */
+.mbar{display:none}
+@media (max-width:700px){
+  .mbar{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;
+    z-index:30;background:#fff;border-top:1px solid var(--line);
+    padding:10px max(16px,env(safe-area-inset-right,0px))
+      calc(10px + env(safe-area-inset-bottom,0px))
+      max(16px,env(safe-area-inset-left,0px))}
+  .mbar .pill{flex:1}
+  footer{padding-bottom:72px}}
+</style>
+
+<div class="util">
+  <div class="wrap">
+    <span class="l">Sales on WhatsApp: David 0912 395 0262 ·
+      John 0702 522 7391 · chukwukajanet@gmail.com</span>
+    <span class="r">
+      <a href="https://www.kmobile.org/docs/kmobile-ev-catalog.pdf"
+        target="_blank" rel="noopener">Download catalogue (PDF)</a>
+      <a href="#" data-quote="">Request a quote</a>
+    </span>
+  </div>
+</div>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <img src="img/logo.jpg" alt="">
+      <b>K-MOBILE</b><span>Edenia Global</span>
+    </a>
+    <ul>
+      <li><button class="cars-btn" type="button" id="carsBtn"
+        aria-expanded="false" aria-controls="mega">Cars</button>
+        <div class="mega" id="mega" hidden>
+          <a href="#alpha"><span class="th">
+            <img src="img/alpha-cut.webp" alt=""></span>
+            <b>Alpha</b><span>Executive SUV · ₦20m</span></a>
+          <a href="#sophia"><span class="th">
+            <img src="img/sophia-cut.webp" alt=""></span>
+            <b>Sophia</b><span>City hatchback · ₦9.7m</span></a>
+          <a href="#sports"><span class="th">
+            <img class="cutw" src="img/sports.webp" alt=""></span>
+            <b>Sports</b><span>Compact · ₦9.7m</span></a>
+        </div></li>
+      <li><a href="#savings">Fuel savings</a></li>
+      <li><a href="#charging">Charging</a></li>
+      <li><a href="#compare">Compare</a></li>
+      <li><a href="#buying">How to buy</a></li>
+      <li><a href="#dealer">Dealer</a></li>
+    </ul>
+    <a class="pill gold" href="#book">Test drive</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" id="hero" aria-roledescription="carousel"
+  aria-label="K-Mobile highlights">
+  <div class="slides">
+    <article class="slide on" aria-roledescription="slide"
+      aria-label="1 of 4">
+      <img class="amb" src="img/alpha-black.jpg" alt="">
+      <div class="wrap in">
+        <div class="copy">
+          <span class="kick">K-Mobile Alpha · Executive SUV</span>
+          <h1>Charged by the sun. Built for our roads.</h1>
+          <p class="sub">Solar roof, home-socket charging and a fuel extender that takes you up to 500 km.</p>
+          <div class="st"><div><b>500 km</b><span>with extender</span></div><div><b>7,500 W</b><span>motor</span></div><div><b>₦20m</b><span>retail price</span></div></div>
+          <div class="acts"><a class="pill gold" href="#book" data-pick="Alpha">Test drive the Alpha</a><button class="pill ghost" type="button" data-quote="Alpha">Get a quote</button></div>
+        </div>
+        <div class="frame"><img src="img/alpha-black.jpg" alt="Black K-Mobile Alpha with its chrome grille" style="object-position:50% 58%"></div>
+      </div>
+    </article>
+    <article class="slide" aria-roledescription="slide"
+      aria-label="2 of 4">
+      <img class="amb" src="img/sophia-rear34.jpg" alt="">
+      <div class="wrap in">
+        <div class="copy">
+          <span class="kick">K-Mobile Sophia · City hatchback</span>
+          <h2 class="h">Small outside. Cool inside.</h2>
+          <p class="sub">Air conditioning, a floating black roof and up to 150 km on a charge from your own socket.</p>
+          <div class="st"><div><b>150 km</b><span>range</span></div><div><b>Air con</b><span>standard</span></div><div><b>₦9.7m</b><span>retail price</span></div></div>
+          <div class="acts"><a class="pill gold" href="#book" data-pick="Sophia">Test drive the Sophia</a><button class="pill ghost" type="button" data-quote="Sophia">Get a quote</button></div>
+        </div>
+        <div class="frame"><img src="img/sophia-rear34.jpg" alt="White K-Mobile Sophia with a black roof" style="object-position:50% 60%"></div>
+      </div>
+    </article>
+    <article class="slide" aria-roledescription="slide"
+      aria-label="3 of 4">
+      <img class="amb" src="img/sports.webp" alt="">
+      <div class="wrap in">
+        <div class="copy">
+          <span class="kick">K-Mobile Sports · Compact</span>
+          <h2 class="h">Easy to park. Easy to own.</h2>
+          <p class="sub">Keyless start, remote start and an alarm as standard. Charges overnight from any home socket.</p>
+          <div class="st"><div><b>150 km</b><span>range</span></div><div><b>60 km/h</b><span>top speed</span></div><div><b>₦9.7m</b><span>retail price</span></div></div>
+          <div class="acts"><a class="pill gold" href="#book" data-pick="Sports">Test drive the Sports</a><button class="pill ghost" type="button" data-quote="Sports">Get a quote</button></div>
+        </div>
+        <div class="frame studio"><img src="img/sports.webp" alt="K-Mobile Sports in cream with red and black graphics"></div>
+      </div>
+    </article>
+    <article class="slide" aria-roledescription="slide"
+      aria-label="4 of 4">
+      <img class="amb" src="img/alpha-white.jpg" alt="">
+      <div class="wrap in">
+        <div class="copy">
+          <span class="kick">Fuel savings</span>
+          <h2 class="h">Spending ₦3.6m a year on petrol?</h2>
+          <p class="sub">That's 55 litres a week in a Corolla or Camry. Charging a K-Mobile costs a fraction of it.</p>
+          <div class="st"><div><b>No</b><span>fuel queues</span></div><div><b>2–3 h</b><span>quick charge</span></div><div><b>1 year</b><span>free servicing</span></div></div>
+          <div class="acts"><a class="pill gold" href="#savings">Work out my savings</a><a class="pill ghost" href="#compare">Compare models</a></div>
+        </div>
+        <div class="frame"><img src="img/alpha-white.jpg" alt="White K-Mobile Alpha in a showroom" style="object-position:50% 62%"></div>
+      </div>
+    </article>
+  </div>
+  <div class="hctl">
+    <div class="wrap">
+      <div class="dots" role="tablist" aria-label="Choose slide">
+        <button type="button" role="tab" aria-current="true">
+          Alpha<i></i></button>
+        <button type="button" role="tab">Sophia<i></i></button>
+        <button type="button" role="tab">Sports<i></i></button>
+        <button type="button" role="tab">Savings<i></i></button>
+      </div>
+      <div class="arrows">
+        <button type="button" id="hPrev" aria-label="Previous slide">
+          ←</button>
+        <button type="button" id="hNext" aria-label="Next slide">
+          →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap finder-wrap">
+  <form class="finder" id="finder" novalidate>
+    <h2>Find your K-Mobile</h2>
+    <label for="fUse">What will you use it for?
+      <select id="fUse">
+        <option value="city">School runs and errands</option>
+        <option value="comfort">Daily commute in comfort</option>
+        <option value="far">Trips outside the state</option>
+        <option value="fleet">A company fleet</option>
+      </select></label>
+    <label for="fBudget">Your budget
+      <select id="fBudget">
+        <option value="10">Up to ₦10 million</option>
+        <option value="20">Up to ₦20 million</option>
+        <option value="99">Above ₦20 million</option>
+      </select></label>
+    <button class="pill ink" type="submit">Show my match</button>
+    <div class="match" id="fMatch" hidden></div>
+  </form>
+</div>
+
+<div class="wrap promise">
+  <h2>The K-Mobile promise</h2>
+  <div><span class="n">1<i>yr</i></span>
+    <p>Free servicing, anywhere in Nigeria</p></div>
+  <div><span class="n">3</span>
+    <p>Ways to charge: sun, socket and fuel</p></div>
+  <div><span class="n">3,000<i>+</i></span>
+    <p>Charge cycles on every LiFePO4 battery</p></div>
+</div>
+
+<section class="band" style="padding-top:0">
+  <div class="wrap panels" id="panels"></div>
+</section>
+
+<section class="dark band" id="savings">
+  <div class="wrap">
+    <div class="sh">
+      <h2>See what petrol is costing you</h2>
+      <p>Most Corollas, Camrys and SUVs burn 55 to 80 litres a week.
+        Set the pump to your own car.</p>
+    </div>
+    <div class="pumpgrid">
+      <div class="pump" aria-live="polite">
+        <div class="ph"><span>YOUR CAR · 1 YEAR</span>
+          <span id="ppl">₦1,255 / L</span></div>
+        <div class="screen"><small>AMOUNT ₦</small>
+          <div class="dig" id="dAmt">0</div></div>
+        <div class="two">
+          <div class="screen"><small>LITRES</small>
+            <div class="dig s" id="dLit">0</div></div>
+          <div class="screen"><small>K-MOBILE ₦</small>
+            <div class="dig s" id="dEv">0</div></div>
+        </div>
+        <p class="verdict" id="verdict"></p>
+        <p class="fine">Petrol car at 10 km per litre. K-Mobile at
+          0.144 kWh per km, minus the solar share. Your figures will
+          vary with traffic and load.</p>
+      </div>
+      <div class="ctrl">
+        <div class="f"><label for="litres">Litres a week
+          <output id="oLit">55</output></label>
+          <input id="litres" type="range" min="10" max="120" value="55">
+        </div>
+        <div class="f"><label for="pump">Pump price per litre (₦)</label>
+          <input id="pump" type="number" min="100" step="5" value="1255"
+            inputmode="numeric"></div>
+        <div class="f"><label for="tariff">Electricity per kWh (₦)</label>
+          <input id="tariff" type="number" min="0" value="209"
+            inputmode="numeric">
+          <small>Check your DisCo bill or token receipt.</small></div>
+        <div class="f"><label for="solar">Solar roof share
+          <output id="oSol">20%</output></label>
+          <input id="solar" type="range" min="0" max="60" step="5"
+            value="20"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="charging">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Three ways to stay charged</h2>
+      <p>No public charger needed. Each car takes power from
+        wherever it can find it.</p>
+    </div>
+    <div class="cols">
+      <article class="col"><span class="n">Sun</span>
+        <h3>Solar roof</h3>
+        <p>Cells on the roof top up the battery whenever the car is
+          in daylight, parked or moving.</p></article>
+      <article class="col"><span class="n">220V</span>
+        <h3>Home socket</h3>
+        <p>Plug into a normal wall outlet or your generator
+          overnight. LiFePO4 cells rated for 3,000+ charges.</p>
+      </article>
+      <article class="col"><span class="n">500 km</span>
+        <h3>Fuel extender</h3>
+        <p>On the Alpha, switch on the extender for interstate trips
+          and keep going without stopping to charge.</p></article>
+    </div>
+    <div class="perks">
+      <div><b>+150–200 km</b><span>free battery power bank</span></div>
+      <div><b>+250–300 km</b><span>self-charging range</span></div>
+      <div><b>2–3 hours</b><span>quick charge, low to full</span></div>
+      <div><b>1 year</b><span>free servicing nationwide</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="mist band" id="compare">
+  <div class="wrap">
+    <div class="sh">
+      <h2>Compare side by side</h2>
+      <p>Pick any two. The better figure in each row is
+        highlighted.</p>
+    </div>
+    <div class="cmp">
+      <div class="cc" id="cA"></div>
+      <div class="cc" id="cB"></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="sh"><h2>Questions</h2></div>
+    <div class="faq">
+      <details open><summary>Do I need a charging station?</summary>
+        <p>No. A normal 220V wall socket or a generator is enough,
+          and the solar roof adds charge in daylight.</p></details>
+      <details><summary>What happens on a long trip?</summary>
+        <p>On the Alpha, switch on the fuel extender. Total range
+          goes up to 500 km.</p></details>
+      <details><summary>Will the battery handle the heat?</summary>
+        <p>K-Mobile uses lithium iron phosphate (LiFePO4) cells,
+          which stay stable at high temperatures and last more than
+          3,000 charge cycles.</p></details>
+      <details><summary>Who services the car?</summary>
+        <p>Servicing is free for the first year, anywhere in Nigeria,
+          through the authorised dealer network.</p></details>
+      <details><summary>Can my company order several?</summary>
+        <p>Yes. Pick "Fleet" in the booking form and we'll prepare a
+          proposal.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="buying">
+  <div class="wrap">
+    <div class="sh">
+      <h2>How buying works</h2>
+      <p>From first look to driving home, Edenia Global handles each
+        step with you.</p>
+    </div>
+    <ol class="steps">
+      <li><h3>Pick a car</h3><p>Compare the three models or use the
+        finder above. Ask us anything on WhatsApp.</p></li>
+      <li><h3>Test drive</h3><p>Visit the showroom or we bring the car
+        to your home or office.</p></li>
+      <li><h3>Confirm your order</h3><p>Agree the price, colour and
+        delivery date with the dealer.</p></li>
+      <li><h3>Drive home</h3><p>Collect your car with the power bank
+        and a year of free servicing.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="dark band" id="book">
+  <div class="wrap bk">
+    <div id="dealer">
+      <h2>Book a test drive</h2>
+      <p style="color:#b0b0b0;margin-top:16px;max-width:38ch">
+        Choose a car and a day. We'll call to confirm and can bring
+        the car to you.</p>
+      <div class="dealer">
+        <span class="ok">AUTHORISED DEALER · RC 1996674</span>
+        <b>Edenia Global Expression Ltd</b>
+        <span>No 8 Amarey Close</span>
+        <span>David (sales): 0912 395 0262</span>
+        <span>John (backup): 0702 522 7391</span>
+        <span>chukwukajanet@gmail.com</span>
+      </div>
+    </div>
+    <form id="bookForm" novalidate>
+      <div class="full fl">Car
+        <div class="seg" role="radiogroup" aria-label="Car">
+          <label><input type="radio" name="car" value="Alpha"
+            id="rAlpha" checked><span>Alpha</span></label>
+          <label><input type="radio" name="car" value="Sophia"
+            id="rSophia"><span>Sophia</span></label>
+          <label><input type="radio" name="car" value="Sports"
+            id="rSports"><span>Sports</span></label>
+          <label><input type="radio" name="car" value="Fleet"
+            id="rFleet"><span>Fleet</span></label>
+        </div>
+      </div>
+      <label class="fl">Full name
+        <input id="bName" autocomplete="name"></label>
+      <label class="fl">Phone or WhatsApp
+        <input id="bPhone" type="tel" autocomplete="tel"></label>
+      <label class="fl">Preferred day
+        <input id="bDate" type="date"></label>
+      <label class="fl">Location
+        <input id="bCity" placeholder="Ikeja, Lagos"></label>
+      <label class="fl full">Notes
+        <textarea id="bMsg" rows="2"
+          placeholder="Trade-in, payment plan, delivery"></textarea>
+      </label>
+      <p class="err full" id="bErr" hidden>Add your name and phone
+        number so we can reach you.</p>
+      <div class="full"><button class="pill gold" type="submit">
+        Request test drive</button></div>
+      <div class="done full" id="bDone" hidden>
+        <p class="ok-msg" id="bStatus"></p>
+        <pre id="bText"></pre>
+        <div class="wa-links" id="bWa"></div>
+        <div style="display:flex;gap:14px;align-items:center">
+          <button type="button" class="pill ghost" id="bCopy"
+            style="height:36px;color:var(--ink)">Copy details</button>
+          <span id="bCopied" hidden>Copied</span>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap become">
+    <div>
+      <h3>Sell K-Mobile in your city</h3>
+      <p>Factory-direct stock, wholesale margins, showroom branding
+        and training. Needs a CAC-registered business and
+        commercial premises.</p>
+    </div>
+    <a class="pill ghost" href="#book" style="color:var(--ink)">
+      Become a dealer</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols4">
+      <div class="about">
+        <a class="brand" href="#top"><img src="img/logo.jpg" alt="">
+          <b style="color:#fff">K-MOBILE</b></a>
+        <p>Solar electric cars with a fuel extender on demand. Sold
+          and serviced in Nigeria by Edenia Global Expression Ltd.</p>
+      </div>
+      <div><h4>Cars</h4><ul>
+        <li><a href="#alpha">Alpha</a></li>
+        <li><a href="#sophia">Sophia</a></li>
+        <li><a href="#sports">Sports</a></li>
+        <li><a href="#compare">Compare models</a></li></ul></div>
+      <div><h4>Owners</h4><ul>
+        <li><a href="#charging">Charging</a></li>
+        <li><a href="#savings">Fuel savings</a></li>
+        <li><a href="#buying">How to buy</a></li>
+        <li><a href="https://www.kmobile.org/docs/kmobile-ev-catalog.pdf"
+          target="_blank" rel="noopener">Catalogue (PDF)</a></li></ul></div>
+      <div><h4>Dealer</h4><ul>
+        <li>Edenia Global Expression Ltd</li>
+        <li>RC 1996674</li>
+        <li>No 8 Amarey Close</li>
+        <li>David: 0912 395 0262</li>
+        <li>John: 0702 522 7391</li>
+        <li>chukwukajanet@gmail.com</li></ul></div>
+    </div>
+    <div class="bottom"><span>© 2026 K-Mobile · Edenia Global</span>
+      <a href="#book">Become a dealer</a></div>
+  </div>
+</footer>
+
+<button class="wa" type="button" id="waBtn">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path
+  d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2
+  c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z
+  m4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7
+  6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5
+  -.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1
+  2.8 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3
+  2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
+  Chat with us
+</button>
+<div class="wa-pop" id="waPop" hidden role="dialog"
+  aria-label="Chat on WhatsApp">
+  <h4>Chat with sales</h4>
+  <p>Pick who to message. John is the backup line.</p>
+  <div id="waList" style="display:grid;gap:8px"></div>
+</div>
+
+<dialog class="q" id="quote" aria-labelledby="qTitle">
+  <form id="qForm" method="dialog" novalidate>
+    <div class="hd"><h2 id="qTitle">Request a quote</h2>
+      <button class="x" type="button" id="qClose"
+        aria-label="Close">×</button></div>
+    <label class="fl full">Car of interest
+      <select id="qCar"><option>Alpha</option><option>Sophia</option>
+        <option>Sports</option><option>Fleet (several cars)</option>
+      </select></label>
+    <label class="fl">Full name<input id="qName" autocomplete="name">
+    </label>
+    <label class="fl">Phone or WhatsApp
+      <input id="qPhone" type="tel" autocomplete="tel"></label>
+    <label class="fl full">Message
+      <textarea id="qMsg" rows="3"
+        placeholder="Colour, delivery city, payment questions"></textarea>
+    </label>
+    <p class="err full" id="qErr" hidden>Add your name and phone
+      number so we can reply.</p>
+    <div class="full" style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="pill gold" type="submit">Get my quote</button></div>
+    <div class="done full" id="qDone" hidden>
+      <p class="ok-msg" id="qStatus"></p>
+      <pre id="qText"></pre>
+      <div class="wa-links" id="qWaLinks"></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <button type="button" class="pill ghost" id="qCopy"
+          style="height:38px;color:var(--ink)">Copy details</button>
+        <span id="qCopied" hidden>Copied</span>
+      </div>
+    </div>
+  </form>
+</dialog>
+
+<div class="mbar">
+  <button class="pill ghost" type="button" id="mWa"
+    style="color:var(--ink)">WhatsApp</button>
+  <a class="pill gold" href="#book">Test drive</a>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const naira = n => "₦" + Math.round(n).toLocaleString("en-NG");
+const plain = n => Math.round(n).toLocaleString("en-NG");
+
+/* models */
+const cars = {
+  Alpha: { tag: "Executive SUV. Solar, electric and fuel.",
+    img: "img/alpha-black.jpg", pos: "50% 58%", light: false,
+    price: 20000000,
+    stats: { range: 500, speed: 100, motor: 7500 },
+    spec: { Price: "₦20,000,000", Range: "300–500 km",
+      "Top speed": "100 km/h", Motor: "7,500 W",
+      Battery: "LiFePO4 72V 300Ah", "Fuel extender": "Yes",
+      "Air conditioning": "Yes", Seats: "4" } },
+  Sophia: { tag: "City hatchback with a floating black roof.",
+    img: "img/sophia-rear34.jpg", pos: "50% 55%", light: true,
+    price: 9700000,
+    stats: { range: 150, speed: 60, motor: 3500 },
+    spec: { Price: "₦9,700,000", Range: "100–150 km",
+      "Top speed": "60 km/h", Motor: "3,500 W",
+      Battery: "LiFePO4 72V 300Ah", "Fuel extender": "No",
+      "Air conditioning": "Yes", Seats: "4" } },
+  Sports: { tag: "Compact and nimble for daily errands.",
+    img: "img/sports.webp", studio: true, price: 9700000,
+    stats: { range: 150, speed: 60, motor: 3500 },
+    spec: { Price: "₦9,700,000", Range: "100–150 km",
+      "Top speed": "60 km/h", Motor: "3,500 W",
+      Battery: "LiFePO4 72V 300Ah", "Fuel extender": "No",
+      "Air conditioning": "—", Seats: "4" } }
+};
+
+$("panels").innerHTML = Object.entries(cars).map(([k, c]) => `
+  <article class="panel${c.studio ? " studio" : c.img ? (c.light ? " light" : "") : " soon"}"
+    id="${k.toLowerCase()}">
+    ${c.img ? `<img src="${c.img}" alt="K-Mobile ${k}"
+      style="object-position:${c.pos}" loading="lazy">`
+      : `<div class="ghostname" aria-hidden="true">${k.toUpperCase()}</div>`}
+    <div class="t">
+      <h2>${k}</h2>
+      <p>${c.tag}</p>
+      ${c.img ? "" : ``}
+    </div>
+    <div class="b">
+      <div class="specs">
+        <div><b>${naira(c.price)}</b><span>retail price</span></div>
+        <div><b>${c.spec.Range}</b><span>range</span></div>
+        <div><b>${c.spec["Top speed"]}</b><span>top speed</span></div>
+      </div>
+      <div class="acts">
+        <a class="pill gold" href="#book" data-pick="${k}">
+          Test drive</a>
+        <button class="pill ghost" type="button" data-quote="${k}">
+          Get a quote</button>
+        <a class="pill ghost" href="#compare" data-cmp="${k}">
+          Compare</a>
+      </div>
+    </div>
+  </article>`).join("");
+
+/* compare */
+const keys = Object.keys(cars);
+let pickA = "Alpha", pickB = "Sophia";
+function card(el, sel, other) {
+  const c = cars[sel], o = cars[other];
+  const better = { Range: c.stats.range > o.stats.range,
+    "Top speed": c.stats.speed > o.stats.speed,
+    Motor: c.stats.motor > o.stats.motor,
+    Price: c.price < o.price };
+  el.innerHTML = `
+    <select aria-label="Choose a model">${keys.map(k =>
+      `<option${k === sel ? " selected" : ""}>${k}</option>`
+    ).join("")}</select>
+    <div class="im">${c.img
+      ? `<img src="${c.img}" alt="K-Mobile ${sel}"${c.studio ? ' class="cut"' : ""}>`
+      : `<span>${sel.toUpperCase()}</span>`}</div>
+    <dl>${Object.entries(c.spec).map(([k, v]) =>
+      `<dt>${k}</dt><dd class="${better[k] ? "win" : ""}">${v}</dd>`
+    ).join("")}</dl>`;
+  el.querySelector("select").addEventListener("change", e => {
+    if (el.id === "cA") pickA = e.target.value;
+    else pickB = e.target.value;
+    renderCmp();
+  });
+}
+function renderCmp() {
+  card($("cA"), pickA, pickB);
+  card($("cB"), pickB, pickA);
+}
+renderCmp();
+
+document.addEventListener("click", e => {
+  const p = e.target.closest("[data-pick]");
+  if (p) $("r" + p.dataset.pick).checked = true;
+  const c = e.target.closest("[data-cmp]");
+  if (c) {
+    pickA = c.dataset.cmp;
+    if (pickB === pickA) pickB = keys.find(k => k !== pickA);
+    renderCmp();
+  }
+});
+
+/* hero carousel */
+(() => {
+  const hero = $("hero");
+  const slides = [...hero.querySelectorAll(".slide")];
+  const dots = [...hero.querySelectorAll(".dots button")];
+  const DUR = 6500;
+  hero.style.setProperty("--dur", DUR + "ms");
+  let cur = 0, timer = null, paused = false;
+  function go(n) {
+    cur = (n + slides.length) % slides.length;
+    slides.forEach((s, i) => {
+      s.classList.toggle("on", i === cur);
+      s.setAttribute("aria-hidden", i !== cur);
+      s.inert = i !== cur;
+    });
+    dots.forEach((d, i) => {
+      d.setAttribute("aria-current", i === cur);
+      const bar = d.querySelector("i");
+      bar.replaceWith(bar.cloneNode());
+    });
+    schedule();
+  }
+  function schedule() {
+    clearTimeout(timer);
+    if (!paused) timer = setTimeout(() => go(cur + 1), DUR);
+  }
+  function pause(p) {
+    paused = p; hero.classList.toggle("paused", p);
+    if (p) clearTimeout(timer); else schedule();
+  }
+  dots.forEach((d, i) => d.addEventListener("click", () => go(i)));
+  $("hPrev").addEventListener("click", () => go(cur - 1));
+  $("hNext").addEventListener("click", () => go(cur + 1));
+  let x0 = null;
+  hero.addEventListener("touchstart", e => {
+    x0 = e.touches[0].clientX; }, { passive: true });
+  hero.addEventListener("touchend", e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1));
+  });
+  document.addEventListener("visibilitychange", () =>
+    pause(document.hidden));
+  go(0);
+})();
+
+/* contacts */
+const CONTACTS = [
+  { name: "David", role: "Sales", num: "2349123950262",
+    show: "0912 395 0262" },
+  { name: "John", role: "Backup", num: "2347025227391",
+    show: "0702 522 7391" }
+];
+const EMAIL = "chukwukajanet@gmail.com";
+/* paste your Formspree form ID here, e.g. "xyzabcd" from
+   https://formspree.io/f/xyzabcd */
+const FORMSPREE_ID = "";
+
+const waUrl = (c, text) =>
+  `https://wa.me/${c.num}?text=${encodeURIComponent(text)}`;
+function waLinks(el, text) {
+  el.innerHTML = CONTACTS.map((c, i) =>
+    `<a class="${i ? "alt" : ""}" href="${waUrl(c, text)}"
+      target="_blank" rel="noopener">WhatsApp ${c.name}</a>`).join("");
+}
+async function sendForm(subject, data) {
+  if (!FORMSPREE_ID) return false;
+  try {
+    const r = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      method: "POST",
+      headers: { "Accept": "application/json",
+        "Content-Type": "application/json" },
+      body: JSON.stringify({ _subject: subject, ...data })
+    });
+    return r.ok;
+  } catch (_) { return false; }
+}
+
+/* cars mega menu */
+const carsBtn = $("carsBtn"), mega = $("mega");
+function setMega(open) {
+  mega.hidden = !open;
+  carsBtn.setAttribute("aria-expanded", open);
+}
+carsBtn.addEventListener("click", e => {
+  e.stopPropagation(); setMega(mega.hidden);
+});
+mega.addEventListener("click", () => setMega(false));
+document.addEventListener("click", e => {
+  if (!e.target.closest(".mega")) setMega(false);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") setMega(false);
+});
+
+/* finder */
+$("finder").addEventListener("submit", e => {
+  e.preventDefault();
+  const use = $("fUse").value, budget = +$("fBudget").value;
+  let pick, why;
+  if (use === "fleet") {
+    pick = null;
+    why = "For fleets we price by volume. Request a quote and "
+      + "we'll send a proposal.";
+  } else if (use === "far" && budget >= 20) {
+    pick = "Alpha";
+    why = "Its fuel extender takes you up to 500 km between stops.";
+  } else if (use === "far") {
+    pick = "Alpha";
+    why = "Only the Alpha has the fuel extender for long trips. "
+      + "It's ₦20m, a little above this budget.";
+  } else if (use === "comfort") {
+    pick = budget >= 20 ? "Alpha" : "Sophia";
+    why = pick === "Sophia"
+      ? "Air conditioning, 150 km range and ₦9.7m."
+      : "The most room and power, with air conditioning.";
+  } else {
+    pick = "Sports";
+    why = "Small, easy to park and ₦9.7m. Charges at home overnight.";
+  }
+  const m = $("fMatch");
+  m.hidden = false;
+  m.innerHTML = pick
+    ? `<p>Your match: <b>K-Mobile ${pick}.</b> ${why}</p>
+       <a class="pill gold" href="#${pick.toLowerCase()}"
+         data-hit="${pick.toLowerCase()}">See the ${pick}</a>`
+    : `<p>${why}</p><button class="pill gold" type="button"
+         data-quote="Fleet (several cars)">Request a fleet quote</button>`;
+});
+document.addEventListener("click", e => {
+  const h = e.target.closest("[data-hit]");
+  if (!h) return;
+  const el = $(h.dataset.hit);
+  document.querySelectorAll(".panel.hit").forEach(x =>
+    x.classList.remove("hit"));
+  el.classList.add("hit");
+  setTimeout(() => el.classList.remove("hit"), 2600);
+});
+
+/* quote dialog */
+const dlg = $("quote");
+function openQuote(car) {
+  if (car) $("qCar").value = car;
+  $("qDone").hidden = true; $("qErr").hidden = true;
+  if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+}
+document.addEventListener("click", e => {
+  const q = e.target.closest("[data-quote]");
+  if (!q) return;
+  e.preventDefault(); openQuote(q.dataset.quote);
+});
+$("qClose").addEventListener("click", () => dlg.close());
+dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
+$("qForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const n = $("qName").value.trim(), ph = $("qPhone").value.trim();
+  $("qErr").hidden = !!(n && ph);
+  if (!n || !ph) return;
+  const car = $("qCar").value, msg = $("qMsg").value.trim();
+  const text = `Hello Edenia Global, I'd like a quote.
+Car: ${car}
+Name: ${n}
+Phone: ${ph}
+Message: ${msg || "-"}`;
+  const btn = e.target.querySelector("[type=submit]");
+  btn.disabled = true; btn.textContent = "Sending…";
+  const sent = await sendForm(`Quote request: ${car}`,
+    { car, name: n, phone: ph, message: msg });
+  btn.disabled = false; btn.textContent = "Get my quote";
+  $("qStatus").textContent = sent
+    ? "Thanks, we've received your request. David will reach you shortly."
+    : `Send this to us on WhatsApp, or email ${EMAIL}.`;
+  $("qText").textContent = text;
+  $("qText").hidden = sent;
+  waLinks($("qWaLinks"), text);
+  $("qDone").hidden = false;
+});
+$("qCopy").addEventListener("click", () => {
+  const sel = () => {
+    const r = document.createRange();
+    r.selectNodeContents($("qText"));
+    getSelection().removeAllRanges(); getSelection().addRange(r);
+  };
+  try {
+    navigator.clipboard.writeText($("qText").textContent)
+      .then(() => { $("qCopied").hidden = false; }, sel);
+  } catch (_) { sel(); }
+});
+
+/* floating chat */
+const hello = "Hello Edenia Global, I'm interested in a K-Mobile car.";
+$("waList").innerHTML = CONTACTS.map((c, i) =>
+  `<a href="${waUrl(c, hello)}" target="_blank" rel="noopener">
+    <div>${c.name} <span>· ${c.show}</span></div>
+    <em>${i ? "BACKUP" : "SALES"}</em></a>`).join("");
+const waPop = $("waPop");
+$("waBtn").addEventListener("click", e => {
+  e.stopPropagation(); waPop.hidden = !waPop.hidden;
+});
+$("mWa").addEventListener("click", e => {
+  e.stopPropagation(); waPop.hidden = !waPop.hidden;
+});
+document.addEventListener("click", e => {
+  if (!e.target.closest("#waPop")) waPop.hidden = true;
+});
+
+/* pump */
+function calc() {
+  const L = +$("litres").value, pump = +$("pump").value || 0;
+  const tariff = +$("tariff").value || 0, solar = +$("solar").value;
+  $("oLit").textContent = L;
+  $("oSol").textContent = solar + "%";
+  $("ppl").textContent = naira(pump) + " / L";
+  const petrol = L * pump * 52;
+  const ev = L * 10 * 52 * 0.144 * tariff * (1 - solar / 100);
+  const keep = Math.max(0, petrol - ev);
+  $("dAmt").textContent = plain(petrol);
+  $("dLit").textContent = plain(L * 52);
+  $("dEv").textContent = plain(ev);
+  $("verdict").innerHTML = `Switch to a K-Mobile and you keep about
+    <b>${naira(keep)}</b> a year. That's ${naira(keep / 12)}
+    a month.`;
+}
+["litres","pump","tariff","solar"].forEach(id =>
+  $(id).addEventListener("input", calc));
+calc();
+
+/* booking */
+$("bookForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const n = $("bName").value.trim(), ph = $("bPhone").value.trim();
+  $("bErr").hidden = !!(n && ph);
+  if (!n || !ph) return;
+  const car = document.querySelector("input[name=car]:checked").value;
+  const day = $("bDate").value || "Flexible";
+  const city = $("bCity").value.trim(), notes = $("bMsg").value.trim();
+  const text = `Hello Edenia Global, I'd like a test drive.
+Car: ${car}
+Name: ${n}
+Phone: ${ph}
+Day: ${day}
+Location: ${city || "-"}
+Notes: ${notes || "-"}`;
+  const btn = e.target.querySelector("[type=submit]");
+  btn.disabled = true; btn.textContent = "Sending…";
+  const sent = await sendForm(`Test drive request: ${car}`,
+    { car, name: n, phone: ph, day, location: city, notes });
+  btn.disabled = false; btn.textContent = "Request test drive";
+  $("bStatus").textContent = sent
+    ? "Request received. We'll call you to confirm your slot."
+    : `Send this to us on WhatsApp, or email ${EMAIL}.`;
+  $("bText").textContent = text;
+  $("bText").hidden = sent;
+  waLinks($("bWa"), text);
+  $("bDone").hidden = false;
+});
+$("bCopy").addEventListener("click", () => {
+  const sel = () => {
+    const r = document.createRange();
+    r.selectNodeContents($("bText"));
+    getSelection().removeAllRanges(); getSelection().addRange(r);
+  };
+  try {
+    navigator.clipboard.writeText($("bText").textContent)
+      .then(() => { $("bCopied").hidden = false; }, sel);
+  } catch (_) { sel(); }
+});
+</script>
