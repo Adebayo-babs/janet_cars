@@ -1,4 +1,4 @@
-<title>Edenia K-Mobile</title>
+<title>Edenia Global Cars</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
@@ -18,8 +18,10 @@
 [hidden]{display:none!important}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+html{font-size:18px}
+@media (max-width:700px){html{font-size:17px}}
 body{background:var(--canvas);color:var(--ink);
-  font:16px/1.55 var(--f)}
+  font:1rem/1.6 var(--f)}
 img{max-width:100%;display:block}
 a{color:inherit;text-decoration:none}
 p{margin:0}
@@ -55,15 +57,15 @@ body::before{content:"";position:fixed;inset:0 0 auto;
   background:#fff;border-bottom:1px solid var(--line)}
 .nav .wrap{height:60px;display:flex;align-items:center;gap:24px}
 .brand{display:flex;align-items:center;gap:10px}
-.brand img{width:30px;height:30px;border-radius:50%}
-.brand b{font-weight:800;letter-spacing:.04em;font-size:.95rem}
+.brand img{width:38px;height:38px}
+.brand b{font-weight:800;letter-spacing:.06em;font-size:1rem}
 .brand span{color:var(--ink3);font-size:.8rem}
-.nav ul{display:flex;gap:28px;list-style:none;margin:0 auto;
-  padding:0;font-size:.9rem;font-weight:500}
+.nav ul{display:flex;gap:26px;list-style:none;margin:0 auto;
+  padding:0;font-size:.92rem;font-weight:500}
 .nav ul a{color:var(--ink2)}
 .nav ul a:hover{color:var(--ink)}
 .nav .pill{height:36px;padding:0 18px;font-size:.88rem}
-@media (max-width:900px){.nav ul{display:none}
+@media (max-width:1100px){.nav ul{display:none}
   .nav .pill{margin-left:auto}}
 
 /* hero carousel (Kia / Carloha / Globe Motors sliders) */
@@ -87,12 +89,12 @@ body::before{content:"";position:fixed;inset:0 0 auto;
 .slide .kick{font-size:.9rem;color:var(--gold);font-weight:600}
 .slide h1,.slide h2.h{font-size:clamp(2.3rem,5.2vw,4.4rem);
   font-weight:600;max-width:13ch}
-.slide .sub{color:#c4c4c4;font-size:1.06rem;max-width:40ch}
+.slide .sub{color:#d0d0d0;font-size:1.15rem;max-width:40ch}
 .slide .st{display:flex;gap:clamp(18px,3vw,36px);flex-wrap:wrap;
   margin-top:4px}
 .slide .st b{display:block;font-size:1.45rem;font-weight:600;
   font-variant-numeric:tabular-nums}
-.slide .st span{font-size:.8rem;color:#9a9a9a}
+.slide .st span{font-size:.9rem;color:#a6a6a6}
 .slide .acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
 .slide .frame{border-radius:24px;overflow:hidden;aspect-ratio:4/3;
   box-shadow:0 40px 80px -30px rgba(0,0,0,.8);min-width:0;
@@ -105,7 +107,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;
 .hctl .wrap{display:flex;align-items:center;gap:20px}
 .dots{display:flex;gap:10px;flex:1}
 .dots button{flex:0 1 150px;background:none;border:0;padding:8px 0;
-  cursor:pointer;color:#a0a0a0;font:600 .82rem var(--f);
+  cursor:pointer;color:#a0a0a0;font:600 .9rem var(--f);
   text-align:left;display:grid;gap:8px}
 .dots button[aria-current=true]{color:#fff}
 .dots i{display:block;height:3px;border-radius:3px;
@@ -149,13 +151,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;
   rgba(0,0,0,0) 60%,rgba(0,0,0,.55) 100%)}
 .panel .t{display:grid;gap:8px;text-align:center;justify-items:center}
 .panel h2{font-size:clamp(2.6rem,6vw,4.6rem)}
-.panel .t p{font-size:1.05rem;opacity:.85}
+.panel .t p{font-size:1.15rem;opacity:.9}
 .panel .b{display:flex;justify-content:space-between;
   align-items:flex-end;gap:20px;flex-wrap:wrap;color:#fff}
 .panel .specs{display:flex;gap:clamp(18px,3vw,40px);flex-wrap:wrap}
 .panel .specs b{display:block;font-size:1.4rem;font-weight:600;
   font-variant-numeric:tabular-nums}
-.panel .specs span{font-size:.8rem;opacity:.8}
+.panel .specs span{font-size:.9rem;opacity:.85}
 .panel .acts{display:flex;gap:10px;flex-wrap:wrap}
 .panel.soon{background:var(--night2)}
 .panel.soon::after{display:none}
@@ -203,11 +205,11 @@ body::before{content:"";position:fixed;inset:0 0 auto;
 .ctrl input[type=number]{background:#111;border:1px solid var(--nline);
   color:#fff;border-radius:10px;padding:10px 12px;font:inherit;
   font-variant-numeric:tabular-nums;width:100%}
-.ctrl small{color:#8a8a8a;font-size:.8rem}
+.ctrl small{color:#9a9a9a;font-size:.88rem}
 .verdict{margin-top:20px;font-size:clamp(1.2rem,2.2vw,1.55rem);
   font-weight:500;max-width:34ch;letter-spacing:-.01em}
 .verdict b{color:var(--gold);font-weight:600}
-.fine{color:#7a7a7a;font-size:.8rem;margin-top:10px}
+.fine{color:#8a8a8a;font-size:.88rem;margin-top:10px}
 @media (max-width:860px){.pumpgrid{grid-template-columns:1fr}}
 
 /* charging */
@@ -222,7 +224,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;
   grid-template-columns:repeat(4,1fr);gap:24px}
 .perks b{display:block;font-size:1.6rem;font-weight:600;
   color:var(--gold);letter-spacing:-.02em}
-.perks span{color:#bdbdbd;font-size:.92rem}
+.perks span{color:#cfcfcf;font-size:1rem}
 @media (max-width:860px){.cols{grid-template-columns:1fr}
   .perks{grid-template-columns:1fr 1fr}}
 
@@ -240,7 +242,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;
   letter-spacing:-.04em}
 .cc dl{margin:0;display:grid;grid-template-columns:auto 1fr}
 .cc dt,.cc dd{margin:0;padding:12px 0;border-top:1px solid var(--line);
-  font-size:.92rem}
+  font-size:1rem}
 .cc dt{color:var(--ink3);padding-right:16px}
 .cc dd{text-align:right;font-weight:500;font-variant-numeric:tabular-nums}
 .cc dd.win{color:#0b7a47}
@@ -302,7 +304,7 @@ footer b{color:#fff}
 
 
 /* utility bar (Carloha / Pegasus) */
-.util{background:var(--night);color:#a8a8a8;font-size:.8rem}
+.util{background:var(--night);color:#b8b8b8;font-size:.82rem}
 .util .wrap{display:flex;justify-content:space-between;gap:16px;
   padding-block:8px;flex-wrap:wrap}
 .util a{color:#e6e6e6}
@@ -370,7 +372,7 @@ footer b{color:#fff}
   letter-spacing:-.04em;line-height:1;display:block;
   font-variant-numeric:tabular-nums}
 .promise .n i{font-style:normal;color:var(--gold)}
-.promise p{color:var(--ink2);font-size:.95rem;margin-top:6px;
+.promise p{color:var(--ink2);font-size:1rem;margin-top:6px;
   max-width:24ch}
 @media (max-width:820px){.promise{grid-template-columns:1fr 1fr 1fr}
   .promise h2{grid-column:1/-1;max-width:none}}
@@ -384,7 +386,7 @@ footer b{color:#fff}
 .steps li::before{counter-increment:st;content:"0" counter(st);
   font-weight:700;color:var(--gold);font-size:.95rem}
 .steps h3{font-size:1.25rem}
-.steps p{color:var(--ink2);font-size:.95rem}
+.steps p{color:var(--ink2);font-size:1rem}
 @media (max-width:860px){.steps{grid-template-columns:1fr 1fr}}
 @media (max-width:480px){.steps{grid-template-columns:1fr}}
 
@@ -495,8 +497,8 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#top">
-      <img src="img/logo.jpg" alt="">
-      <b>K-MOBILE</b><span>Edenia Global</span>
+      <img src="img/edenia-mark.png" alt="">
+      <b>EDENIA GLOBAL</b>
     </a>
     <ul>
       <li><button class="cars-btn" type="button" id="carsBtn"
@@ -504,13 +506,15 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
         <div class="mega" id="mega" hidden>
           <a href="#alpha"><span class="th">
             <img src="img/alpha-cut.webp" alt=""></span>
-            <b>Alpha</b><span>Executive SUV · ₦20m</span></a>
+            <b>Alpha</b><span>Executive SUV · ₦28.5m</span></a>
           <a href="#sophia"><span class="th">
             <img src="img/sophia-cut.webp" alt=""></span>
-            <b>Sophia</b><span>City hatchback · ₦9.7m</span></a>
+            <b>Sophia</b><span>City hatchback · ₦15m</span></a>
           <a href="#sports"><span class="th">
             <img class="cutw" src="img/sports.webp" alt=""></span>
-            <b>Sports</b><span>Compact · ₦9.7m</span></a>
+            <b>Sports</b><span>Compact · ₦14m</span></a>
+          <a href="#kairos"><span class="th dk">KAIROS</span>
+            <b>Kairos</b><span>New model · ₦29m</span></a>
         </div></li>
       <li><a href="#savings">Fuel savings</a></li>
       <li><a href="#charging">Charging</a></li>
@@ -534,7 +538,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
           <span class="kick">K-Mobile Alpha · Executive SUV</span>
           <h1>Charged by the sun. Built for our roads.</h1>
           <p class="sub">Solar roof, home-socket charging and a fuel extender that takes you up to 500 km.</p>
-          <div class="st"><div><b>500 km</b><span>with extender</span></div><div><b>7,500 W</b><span>motor</span></div><div><b>₦20m</b><span>retail price</span></div></div>
+          <div class="st"><div><b>500 km</b><span>with extender</span></div><div><b>7,500 W</b><span>motor</span></div><div><b>₦28.5m</b><span>retail price</span></div></div>
           <div class="acts"><a class="pill gold" href="#book" data-pick="Alpha">Test drive the Alpha</a><button class="pill ghost" type="button" data-quote="Alpha">Get a quote</button></div>
         </div>
         <div class="frame"><img src="img/alpha-black.jpg" alt="Black K-Mobile Alpha with its chrome grille" style="object-position:50% 58%"></div>
@@ -548,7 +552,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
           <span class="kick">K-Mobile Sophia · City hatchback</span>
           <h2 class="h">Small outside. Cool inside.</h2>
           <p class="sub">Air conditioning, a floating black roof and up to 150 km on a charge from your own socket.</p>
-          <div class="st"><div><b>150 km</b><span>range</span></div><div><b>Air con</b><span>standard</span></div><div><b>₦9.7m</b><span>retail price</span></div></div>
+          <div class="st"><div><b>150 km</b><span>range</span></div><div><b>Air con</b><span>standard</span></div><div><b>₦15m</b><span>retail price</span></div></div>
           <div class="acts"><a class="pill gold" href="#book" data-pick="Sophia">Test drive the Sophia</a><button class="pill ghost" type="button" data-quote="Sophia">Get a quote</button></div>
         </div>
         <div class="frame"><img src="img/sophia-rear34.jpg" alt="White K-Mobile Sophia with a black roof" style="object-position:50% 60%"></div>
@@ -561,8 +565,8 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
         <div class="copy">
           <span class="kick">K-Mobile Sports · Compact</span>
           <h2 class="h">Easy to park. Easy to own.</h2>
-          <p class="sub">Keyless start, remote start and an alarm as standard. Charges overnight from any home socket.</p>
-          <div class="st"><div><b>150 km</b><span>range</span></div><div><b>60 km/h</b><span>top speed</span></div><div><b>₦9.7m</b><span>retail price</span></div></div>
+          <p class="sub">Keyless start, remote start and an alarm as standard. Fully charged in 2 to 3 hours from any home socket.</p>
+          <div class="st"><div><b>150 km</b><span>range</span></div><div><b>60 km/h</b><span>top speed</span></div><div><b>₦14m</b><span>retail price</span></div></div>
           <div class="acts"><a class="pill gold" href="#book" data-pick="Sports">Test drive the Sports</a><button class="pill ghost" type="button" data-quote="Sports">Get a quote</button></div>
         </div>
         <div class="frame studio"><img src="img/sports.webp" alt="K-Mobile Sports in cream with red and black graphics"></div>
@@ -614,9 +618,9 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
       </select></label>
     <label for="fBudget">Your budget
       <select id="fBudget">
-        <option value="10">Up to ₦10 million</option>
-        <option value="20">Up to ₦20 million</option>
-        <option value="99">Above ₦20 million</option>
+        <option value="15">Up to ₦15 million</option>
+        <option value="29">Up to ₦29 million</option>
+        <option value="99">Above ₦29 million</option>
       </select></label>
     <button class="pill ink" type="submit">Show my match</button>
     <div class="match" id="fMatch" hidden></div>
@@ -697,7 +701,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
       <article class="col"><span class="n">220V</span>
         <h3>Home socket</h3>
         <p>Plug into a normal wall outlet or your generator
-          overnight. LiFePO4 cells rated for 3,000+ charges.</p>
+          in 2 to 3 hours. LiFePO4 cells rated for 3,000+ charges.</p>
       </article>
       <article class="col"><span class="n">500 km</span>
         <h3>Fuel extender</h3>
@@ -796,6 +800,8 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
             id="rSophia"><span>Sophia</span></label>
           <label><input type="radio" name="car" value="Sports"
             id="rSports"><span>Sports</span></label>
+          <label><input type="radio" name="car" value="Kairos"
+            id="rKairos"><span>Kairos</span></label>
           <label><input type="radio" name="car" value="Fleet"
             id="rFleet"><span>Fleet</span></label>
         </div>
@@ -848,8 +854,9 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
   <div class="wrap">
     <div class="cols4">
       <div class="about">
-        <a class="brand" href="#top"><img src="img/logo.jpg" alt="">
-          <b style="color:#fff">K-MOBILE</b></a>
+        <a class="brand" href="#top"><img src="img/edenia-mark.png" alt=""
+          style="width:44px;height:44px">
+          <b style="color:#fff">EDENIA GLOBAL</b></a>
         <p>Solar electric cars with a fuel extender on demand. Sold
           and serviced in Nigeria by Edenia Global Expression Ltd.</p>
       </div>
@@ -857,6 +864,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
         <li><a href="#alpha">Alpha</a></li>
         <li><a href="#sophia">Sophia</a></li>
         <li><a href="#sports">Sports</a></li>
+        <li><a href="#kairos">Kairos</a></li>
         <li><a href="#compare">Compare models</a></li></ul></div>
       <div><h4>Owners</h4><ul>
         <li><a href="#charging">Charging</a></li>
@@ -872,7 +880,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
         <li>John: 0702 522 7391</li>
         <li>chukwukajanet@gmail.com</li></ul></div>
     </div>
-    <div class="bottom"><span>© 2026 K-Mobile · Edenia Global</span>
+    <div class="bottom"><span>© 2026 Edenia Global Expression Ltd</span>
       <a href="#book">Become a dealer</a></div>
   </div>
 </footer>
@@ -902,7 +910,8 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
         aria-label="Close">×</button></div>
     <label class="fl full">Car of interest
       <select id="qCar"><option>Alpha</option><option>Sophia</option>
-        <option>Sports</option><option>Fleet (several cars)</option>
+        <option>Sports</option><option>Kairos</option>
+        <option>Fleet (several cars)</option>
       </select></label>
     <label class="fl">Full name<input id="qName" autocomplete="name">
     </label>
@@ -944,27 +953,29 @@ const plain = n => Math.round(n).toLocaleString("en-NG");
 const cars = {
   Alpha: { tag: "Executive SUV. Solar, electric and fuel.",
     img: "img/alpha-black.jpg", pos: "50% 58%", light: false,
-    price: 20000000,
+    price: 28500000,
     stats: { range: 500, speed: 100, motor: 7500 },
-    spec: { Price: "₦20,000,000", Range: "300–500 km",
+    spec: { Price: "₦28,500,000", Range: "300–500 km",
       "Top speed": "100 km/h", Motor: "7,500 W",
       Battery: "LiFePO4 72V 300Ah", "Fuel extender": "Yes",
       "Air conditioning": "Yes", Seats: "4" } },
   Sophia: { tag: "City hatchback with a floating black roof.",
     img: "img/sophia-rear34.jpg", pos: "50% 55%", light: true,
-    price: 9700000,
+    price: 15000000,
     stats: { range: 150, speed: 60, motor: 3500 },
-    spec: { Price: "₦9,700,000", Range: "100–150 km",
+    spec: { Price: "₦15,000,000", Range: "100–150 km",
       "Top speed": "60 km/h", Motor: "3,500 W",
       Battery: "LiFePO4 72V 300Ah", "Fuel extender": "No",
       "Air conditioning": "Yes", Seats: "4" } },
   Sports: { tag: "Compact and nimble for daily errands.",
-    img: "img/sports.webp", studio: true, price: 9700000,
+    img: "img/sports.webp", studio: true, price: 14000000,
     stats: { range: 150, speed: 60, motor: 3500 },
-    spec: { Price: "₦9,700,000", Range: "100–150 km",
+    spec: { Price: "₦14,000,000", Range: "100–150 km",
       "Top speed": "60 km/h", Motor: "3,500 W",
       Battery: "LiFePO4 72V 300Ah", "Fuel extender": "No",
-      "Air conditioning": "—", Seats: "4" } }
+      "Air conditioning": "—", Seats: "4" } },
+  Kairos: { tag: "The newest K-Mobile. Ask us for the full details.",
+    img: null, price: 29000000, spec: null }
 };
 
 $("panels").innerHTML = Object.entries(cars).map(([k, c]) => `
@@ -981,22 +992,23 @@ $("panels").innerHTML = Object.entries(cars).map(([k, c]) => `
     <div class="b">
       <div class="specs">
         <div><b>${naira(c.price)}</b><span>retail price</span></div>
-        <div><b>${c.spec.Range}</b><span>range</span></div>
-        <div><b>${c.spec["Top speed"]}</b><span>top speed</span></div>
+        ${c.spec ? `<div><b>${c.spec.Range}</b><span>range</span></div>
+        <div><b>${c.spec["Top speed"]}</b><span>top speed</span></div>`
+        : `<div><b>On request</b><span>specs and photos</span></div>`}
       </div>
       <div class="acts">
         <a class="pill gold" href="#book" data-pick="${k}">
           Test drive</a>
         <button class="pill ghost" type="button" data-quote="${k}">
           Get a quote</button>
-        <a class="pill ghost" href="#compare" data-cmp="${k}">
-          Compare</a>
+        ${c.spec ? `<a class="pill ghost" href="#compare"
+          data-cmp="${k}">Compare</a>` : ""}
       </div>
     </div>
   </article>`).join("");
 
 /* compare */
-const keys = Object.keys(cars);
+const keys = Object.keys(cars).filter(k => cars[k].spec);
 let pickA = "Alpha", pickB = "Sophia";
 function card(el, sel, other) {
   const c = cars[sel], o = cars[other];
@@ -1141,21 +1153,21 @@ $("finder").addEventListener("submit", e => {
     pick = null;
     why = "For fleets we price by volume. Request a quote and "
       + "we'll send a proposal.";
-  } else if (use === "far" && budget >= 20) {
+  } else if (use === "far" && budget >= 28.5) {
     pick = "Alpha";
     why = "Its fuel extender takes you up to 500 km between stops.";
   } else if (use === "far") {
     pick = "Alpha";
     why = "Only the Alpha has the fuel extender for long trips. "
-      + "It's ₦20m, a little above this budget.";
+      + "It's ₦28.5m, above this budget.";
   } else if (use === "comfort") {
-    pick = budget >= 20 ? "Alpha" : "Sophia";
+    pick = budget >= 28.5 ? "Alpha" : "Sophia";
     why = pick === "Sophia"
-      ? "Air conditioning, 150 km range and ₦9.7m."
+      ? "Air conditioning, 150 km range and ₦15m."
       : "The most room and power, with air conditioning.";
   } else {
     pick = "Sports";
-    why = "Small, easy to park and ₦9.7m. Charges at home overnight.";
+    why = "Small, easy to park and ₦14m. Full charge in 2 to 3 hours.";
   }
   const m = $("fMatch");
   m.hidden = false;
