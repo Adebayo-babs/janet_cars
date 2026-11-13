@@ -164,11 +164,6 @@ body::before{content:"";position:fixed;inset:0 0 auto;
 .panel.soon .ghostname{position:absolute;inset:auto 0 18% 0;
   text-align:center;font-weight:800;font-size:clamp(5rem,20vw,15rem);
   letter-spacing:-.05em;line-height:.8;color:#262626;z-index:-1}
-@media (max-width:700px){
-  .panel{padding:24px 20px 0}
-  .panel .b{background:rgba(10,10,10,.82);margin:0 -20px;
-    padding:18px 20px 20px;backdrop-filter:blur(6px)}
-  .panel .specs b{font-size:1.1rem}}
 .panel.soon .note{font-size:.88rem;color:#9a9a9a}
 
 /* section heading */
@@ -293,7 +288,7 @@ form input:focus,form textarea:focus{outline:0;border-color:var(--ink)}
 @media (max-width:860px){.bk{grid-template-columns:1fr}}
 @media (max-width:480px){form{grid-template-columns:1fr}}
 
-.become{display:flex;justify-content:space-between;align-items:center;
+.become-unused{display:flex;justify-content:space-between;align-items:center;
   gap:24px;flex-wrap:wrap}
 .become h3{font-size:clamp(1.5rem,3vw,2.2rem)}
 .become p{color:var(--ink2);max-width:52ch;margin-top:8px}
@@ -481,15 +476,40 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
       max(16px,env(safe-area-inset-left,0px))}
   .mbar .pill{flex:1}
   footer{padding-bottom:72px}}
+
+/* phones: stack each model panel, photo first, details below */
+@media (max-width:700px){
+  .panel{min-height:0;display:flex;flex-direction:column;padding:0;
+    background:var(--night2);color:#fff}
+  .panel::after{display:none}
+  .panel>img{position:static;width:100%;height:auto;
+    aspect-ratio:4/3;object-fit:cover;order:-1}
+  .panel.studio{background:var(--night2);color:#fff}
+  .panel.studio>img{inset:auto;width:100%;height:auto;padding:6% 8%;
+    object-fit:contain;filter:none;
+    background:radial-gradient(110% 80% at 50% 70%,#f7f7f7 0%,
+      #dcdfe3 55%,#c4c8ce 100%)}
+  .panel .t{padding:20px 20px 0;text-align:left;justify-items:start}
+  .panel.light,.panel.light .t{color:#fff}
+  .panel h2{font-size:2.3rem}
+  .panel .t p{font-size:1.05rem;opacity:.8}
+  .panel .b{padding:16px 20px 22px;flex-direction:column;
+    align-items:stretch;gap:18px}
+  .panel .specs{display:grid;grid-template-columns:1fr 1fr;
+    gap:12px 16px}
+  .panel .specs b{font-size:1.15rem}
+  .panel .acts .pill{flex:1 1 auto;height:42px;padding:0 14px}
+  .panel.soon{min-height:0}
+  .panel.soon .t{padding-top:96px}
+  .panel.soon .ghostname{inset:28px 0 auto;font-size:5.5rem}}
 </style>
 
 <div class="util">
   <div class="wrap">
     <span class="l">Sales on WhatsApp: David 0912 395 0262 ·
-      John 0702 522 7391 · chukwukajanet@gmail.com</span>
+      John 0702 522 7391 · info@edeniaglobal.org</span>
     <span class="r">
-      <a href="https://www.kmobile.org/docs/kmobile-ev-catalog.pdf"
-        target="_blank" rel="noopener">Download catalogue (PDF)</a>
+      <a href="#cars-list">Prices</a>
       <a href="#" data-quote="">Request a quote</a>
     </span>
   </div>
@@ -532,7 +552,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
   <div class="slides">
     <article class="slide on" aria-roledescription="slide"
       aria-label="1 of 4">
-      <img class="amb" src="img/alpha-black.jpg" alt="">
+      <img class="amb" src="img/alpha-white.jpg" alt="">
       <div class="wrap in">
         <div class="copy">
           <span class="kick">K-Mobile Alpha · Executive SUV</span>
@@ -541,7 +561,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
           <div class="st"><div><b>500 km</b><span>with extender</span></div><div><b>7,500 W</b><span>motor</span></div><div><b>₦28.5m</b><span>retail price</span></div></div>
           <div class="acts"><a class="pill gold" href="#book" data-pick="Alpha">Test drive the Alpha</a><button class="pill ghost" type="button" data-quote="Alpha">Get a quote</button></div>
         </div>
-        <div class="frame"><img src="img/alpha-black.jpg" alt="Black K-Mobile Alpha with its chrome grille" style="object-position:50% 58%"></div>
+        <div class="frame"><img src="img/alpha-white.jpg" alt="White K-Mobile Alpha with its chrome grille" style="object-position:50% 62%"></div>
       </div>
     </article>
     <article class="slide" aria-roledescription="slide"
@@ -574,7 +594,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
     </article>
     <article class="slide" aria-roledescription="slide"
       aria-label="4 of 4">
-      <img class="amb" src="img/alpha-white.jpg" alt="">
+      <img class="amb" src="img/sophia-rear.jpg" alt="">
       <div class="wrap in">
         <div class="copy">
           <span class="kick">Fuel savings</span>
@@ -583,7 +603,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
           <div class="st"><div><b>No</b><span>fuel queues</span></div><div><b>2–3 h</b><span>quick charge</span></div><div><b>1 year</b><span>free servicing</span></div></div>
           <div class="acts"><a class="pill gold" href="#savings">Work out my savings</a><a class="pill ghost" href="#compare">Compare models</a></div>
         </div>
-        <div class="frame"><img src="img/alpha-white.jpg" alt="White K-Mobile Alpha in a showroom" style="object-position:50% 62%"></div>
+        <div class="frame"><img src="img/sophia-rear.jpg" alt="K-Mobile Sophia from behind, LED tail lights" style="object-position:50% 58%"></div>
       </div>
     </article>
   </div>
@@ -637,7 +657,7 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
     <p>Charge cycles on every LiFePO4 battery</p></div>
 </div>
 
-<section class="band" style="padding-top:0">
+<section class="band" style="padding-top:0" id="cars-list">
   <div class="wrap panels" id="panels"></div>
 </section>
 
@@ -785,10 +805,9 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
       <div class="dealer">
         <span class="ok">AUTHORISED DEALER · RC 1996674</span>
         <b>Edenia Global Expression Ltd</b>
-        <span>No 8 Amarey Close</span>
         <span>David (sales): 0912 395 0262</span>
         <span>John (backup): 0702 522 7391</span>
-        <span>chukwukajanet@gmail.com</span>
+        <span>info@edeniaglobal.org</span>
       </div>
     </div>
     <form id="bookForm" novalidate>
@@ -836,18 +855,6 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
   </div>
 </section>
 
-<section class="band">
-  <div class="wrap become">
-    <div>
-      <h3>Sell K-Mobile in your city</h3>
-      <p>Factory-direct stock, wholesale margins, showroom branding
-        and training. Needs a CAC-registered business and
-        commercial premises.</p>
-    </div>
-    <a class="pill ghost" href="#book" style="color:var(--ink)">
-      Become a dealer</a>
-  </div>
-</section>
 </main>
 
 <footer>
@@ -870,18 +877,16 @@ footer .bottom{display:flex;justify-content:space-between;flex-wrap:wrap;
         <li><a href="#charging">Charging</a></li>
         <li><a href="#savings">Fuel savings</a></li>
         <li><a href="#buying">How to buy</a></li>
-        <li><a href="https://www.kmobile.org/docs/kmobile-ev-catalog.pdf"
-          target="_blank" rel="noopener">Catalogue (PDF)</a></li></ul></div>
+        <li><a href="#" data-quote="">Request a quote</a></li></ul></div>
       <div><h4>Dealer</h4><ul>
         <li>Edenia Global Expression Ltd</li>
         <li>RC 1996674</li>
-        <li>No 8 Amarey Close</li>
         <li>David: 0912 395 0262</li>
         <li>John: 0702 522 7391</li>
-        <li>chukwukajanet@gmail.com</li></ul></div>
+        <li>info@edeniaglobal.org</li></ul></div>
     </div>
     <div class="bottom"><span>© 2026 Edenia Global Expression Ltd</span>
-      <a href="#book">Become a dealer</a></div>
+      <span>info@edeniaglobal.org</span></div>
   </div>
 </footer>
 
@@ -952,7 +957,7 @@ const plain = n => Math.round(n).toLocaleString("en-NG");
 /* models */
 const cars = {
   Alpha: { tag: "Executive SUV. Solar, electric and fuel.",
-    img: "img/alpha-black.jpg", pos: "50% 58%", light: false,
+    img: "img/alpha-white.jpg", pos: "50% 62%", light: true,
     price: 28500000,
     stats: { range: 500, speed: 100, motor: 7500 },
     spec: { Price: "₦28,500,000", Range: "300–500 km",
@@ -1102,7 +1107,7 @@ const CONTACTS = [
   { name: "John", role: "Backup", num: "2347025227391",
     show: "0702 522 7391" }
 ];
-const EMAIL = "chukwukajanet@gmail.com";
+const EMAIL = "info@edeniaglobal.org";
 /* paste your Formspree form ID here, e.g. "xyzabcd" from
    https://formspree.io/f/xyzabcd */
 const FORMSPREE_ID = "";
